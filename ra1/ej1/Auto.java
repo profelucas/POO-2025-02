@@ -4,7 +4,7 @@ class Auto {
     private String color;
     private String patente;
     private String modelo;
-    private int Annio;
+    protected int Annio;
     private float km;
     private int traccion;
 
@@ -24,6 +24,10 @@ class Auto {
     public String getmodelo(){
         return this.modelo;
     }
+
+    public int getannio(){
+        return this.Annio;
+    }
     //set
     public void setmodelo(String modelo){
         this.modelo=modelo;
@@ -34,7 +38,7 @@ class Auto {
     }
 
     //funcion compare dos marcas de objetos distintos
-
+    //ejemplo de polimorfismo por sobrecarga
     public void compararmarcas(String marca_objeto){
         if (this.marca==marca_objeto) {
             System.out.println("Son marcas iguales");
@@ -43,7 +47,7 @@ class Auto {
         }
     }
 
-    public void compararmarcas2(Auto c1){
+    public void compararmarcas(Auto c1){
 
         String marca = c1.getmarca();
 
@@ -54,8 +58,16 @@ class Auto {
         }
 
     }
-}
 
+    public void mostrar(){
+        System.out.println("auto:");
+        System.out.println("marca: "+this.marca);
+        System.out.println("año: " +this.Annio);
+        System.out.println("modelo: "+this.modelo);
+        System.out.println("color: "+this.color);
+    }
+}
+//sub clase (por herencia)
 class autoelectrico extends Auto{
 
     private int capacidadcarga;
@@ -78,5 +90,37 @@ class autoelectrico extends Auto{
         } else {
             System.out.println("El estado de la bateria es optimo");
         }
+    }
+
+    //polimorfismo por inclusion
+    @Override
+    public void mostrar(){
+        System.out.println("auto electrico:");
+        System.out.println("año: " +this.Annio);
+        System.out.println("capacidad de bateria: " +this.capacidadcarga);
+
+    }
+}
+
+//polimorfismo parametrico
+class concesionario<T>{
+    private T[] objetos;
+    private int contador=0;
+
+    public concesionario(int capacidad){
+        objetos = (T[])new Object[capacidad];
+    }
+
+    public void guardar(T objeto){
+        if (contador < objetos.length) {
+            objetos[contador++]= objeto;
+            System.out.println("Se ha guardado " +objeto.getClass().getSimpleName()+ "en el concesionario");
+        }else{
+            System.out.println("El concesionario esta lleno");
+        }
+    }
+
+    public T[] obtenerTodos(){
+        return objetos;
     }
 }
